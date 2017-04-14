@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.agenciaDeViajesMVC.modelos">
+	<class name="UserRole" table="user_Role" lazy="false">
+		<id name="idUserRole" type="integer" >
+			<generator class="increment" />
+<!-- 			</generator> -->
+		</id>
+				
+		<property name="role" />
+		
+		<many-to-one foreign-key="fk_pasajero2" name="pasajero" column="idPasajero" not-null="true"/>		
+
+	</class>
+</hibernate-mapping>

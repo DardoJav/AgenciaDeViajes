@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!-- se declaran los -Controladores -Servicios -Daos en un xml aparte -->
+	<import resource="resources/applicationContext.xml" />
+	
+	<!-- se mapean las url, para dada una direccion, saber qué controlador invocar -->
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+<!-- 				<prop key="test">mainController</prop>	 -->
+				<prop key="airlineList">airlineController</prop>
+				<prop key="save">airlineController</prop>
+				<prop key="/delete/{id}">airlineController</prop>
+				<prop key="/edit/{id}">airlineController</prop>	
+<!-- 				<prop key="/planes/{id}">airlineController</prop> -->
+				<prop key="/planeList/{id}">planeController</prop>			
+			</props>
+		</property>
+	</bean>
+	
+	<!-- genera el nombre del jsp a invocar segun las reglas de navegabilidad de los controladores -->
+	<bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>

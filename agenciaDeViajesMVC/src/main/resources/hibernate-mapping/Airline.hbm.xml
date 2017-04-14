@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.agenciaDeViajesMVC.modelos">
+	<class name="Airline" table="airline" lazy="false">
+		<id name="idAirline" type="integer">
+			<generator class="increment" />
+<!-- 			</generator> -->
+		</id>
+				
+		<property name="name"/>
+		
+		<set name="flights" inverse="true" cascade="all">
+            <key column="idAirline" not-null="true" />
+            <one-to-many class="Flight"/>
+        </set>
+        
+        <set name="planes" inverse="true" cascade="all">
+            <key column="idAirline" not-null="true" />
+            <one-to-many class="Plane"/>
+        </set>
+        
+        <set name="pilots" table="airline_pilot" cascade="all" inverse="false" fetch="select" lazy="true">
+            <key foreign-key="fk_Airline" column="idAirline" not-null="true"/>
+            <many-to-many foreign-key="fk_pilot" column="idPilot" class="Pilot"/>
+        </set>
+		
+	</class>
+</hibernate-mapping>

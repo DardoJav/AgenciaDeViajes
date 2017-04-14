@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.agenciaDeViajesMVC.modelos">
+	<class name="Ticket" table="ticket" lazy="false">
+		<id name="idTicket" type="integer" >
+			<generator class="increment" />
+<!-- 			</generator> -->
+		</id>
+		
+		<many-to-one foreign-key="fk_passenger" name="passenger" column="idPassenger" not-null="true"/>		
+		<many-to-one foreign-key="fk_flight" name="flight" column="idFlight" not-null="true"/>		
+		<many-to-one foreign-key="fk_seat" name="seat" column="idSeat" not-null="true"/>		
+			
+	</class>
+	
+</hibernate-mapping>

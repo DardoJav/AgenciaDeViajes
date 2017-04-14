@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.agenciaDeViajesMVC.modelos">
+	<class name="City" table="city" lazy="false">
+		<id name="idCity" type="integer" >
+			<generator class="increment" />
+<!-- 			</generator> -->
+		</id>
+				
+		<property name="name"/>
+		<property name="postalCode" index="yes"/>
+		
+		<set name="airports" inverse="true" cascade="all">
+            <key column="idCity" not-null="true" />
+            <one-to-many class="Airport"/>
+        </set>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"	
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"> 
+
+	<context:component-scan base-package="com.agenciaDeViajesMVC.daos" />
+	
+	<!-- DAOS -->
+	<bean id="aeropuertoDaoTest" class="com.agenciaDeViajesMVC.daos.AeropuertoDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="avionDaoTest" class="com.agenciaDeViajesMVC.daos.AvionDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ciudadDaoTest" class="com.agenciaDeViajesMVC.daos.CiudadDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="lineaAereaDaoTest" class="com.agenciaDeViajesMVC.daos.LineaAereaDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="pasajeDaoTest" class="com.agenciaDeViajesMVC.daos.PasajeDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="pasajeroDaoTest" class="com.agenciaDeViajesMVC.daos.PasajeroDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="pilotoDaoTest" class="com.agenciaDeViajesMVC.daos.PilotoDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="vueloDaoTest" class="com.agenciaDeViajesMVC.daos.VueloDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="asientoDaoTest" class="com.agenciaDeViajesMVC.daos.AsientoDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="proveedorDaoTest" class="com.agenciaDeViajesMVC.daos.ProveedorDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+
+<!-- Datos para la conexión de hibernate -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" >
+			<value>jdbcTest.properties</value>
+		</property>
+	</bean>
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	
+		<!-- SessionFactory de hibernate -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>hibernate-mapping/Passenger.hbm.xml</value>
+				<value>hibernate-mapping/Airport.hbm.xml</value>
+				<value>hibernate-mapping/City.hbm.xml</value>
+				<value>hibernate-mapping/Airline.hbm.xml</value>
+				<value>hibernate-mapping/Pilot.hbm.xml</value>
+				<value>hibernate-mapping/Flight.hbm.xml</value>
+				<value>hibernate-mapping/Plane.hbm.xml</value>
+				<value>hibernate-mapping/Seat.hbm.xml</value>
+				<value>hibernate-mapping/Ticket.hbm.xml</value>
+				<value>hibernate-mapping/Provider.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="current_session_context_class">thread</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="show_sql">true</prop>		
+			</props>
+		</property>
+	</bean>
+	
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager"/> -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+<!-- 	Objeto utilizado para administrar las transacciones -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+
+</beans>
+

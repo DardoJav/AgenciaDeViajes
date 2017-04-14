@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+	<Ciudad idCiudad="1" name="La Plata" codPostal="1900"/>
+	<Ciudad idCiudad="2" name="Buenos Aires" codPostal="1000"/>
+</dataset>
